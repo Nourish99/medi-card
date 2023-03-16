@@ -28,7 +28,8 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true,
-        minlength: 6
+        minlength: 6,
+        max: 1024
     },
     date: {
         type: Date,
@@ -45,6 +46,7 @@ const userSchema = mongoose.Schema({
     },
     role:{
         type: String,
+        required,
         enum : ['doctor','nurse','admin'],
         default: 'doctor'
     }

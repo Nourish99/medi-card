@@ -1,11 +1,8 @@
 const router = require('express').Router();
+import { Login, signup } from '../controllers/authcontroller';
 
-router.post('/register', async (req, res) => {
+router.post('/register', signup );
 
-    res.json({
-        error: null,
-        data: 'aquí va ir la data'
-    })
-})
+router.post('/login', Login);
 
 module.exports = router;
