@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    urlApi: 'https://medi-card-production.up.railway.app',
+    urlApi: 'https://medi-card-production.up.railway.app/',
   };
   
