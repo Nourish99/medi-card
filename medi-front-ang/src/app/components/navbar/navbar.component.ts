@@ -27,8 +27,12 @@ export class NavbarComponent implements OnInit{
     this.logged = this.authService.isLogged();
   }
 
-  get LoginUrl(){
-    return this.router.createUrlTree(['/login'])
+  navigateLoginUrl(){
+    this.router.navigate(['login'])
+  }
+
+  navigateHome(){
+    this.router.navigate([''])
   }
 
   logOut(){
