@@ -1,1 +1,43 @@
-<p>landing-contact works!</p>
+<div class="container py-5 my-5">
+    <h2 class="title-contact">Contacto</h2>
+    <div class="columns is-flex is-justify-content-center w-100">
+        <div class="column is-6">
+            <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+                <div class="field">
+                    <label class="label" for="Email">Email</label>
+                    <div class="control ">
+                        <input type="email" class="input" name="Email" aria-describedby="emailHelp"
+                            placeholder="Enter email" formControlName="Email" />
+
+                    </div>
+                    <p id="emailHelp" class="help is-success">We'll never share your email with anyone
+                        else.</p>
+                </div>
+                <div class="field">
+                    <label class="label" for="fullname">Full Name</label>
+                    <div class="control">
+                        <input type="text" class="input" name="Fullname" placeholder="Full Name"
+                            formControlName="Fullname" />
+                    </div>
+
+                </div>
+                <div class="field">
+                    <label class="label" for="fullname">Cellphone</label>
+                    <div class="control">
+                        <input type="text" class="input" name="Cellphone" placeholder="Cellphone"
+                            formControlName="Cellphone" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="comment">Comment</label>
+                    <div class="control">
+                        <textarea class="textarea" formControlName="Comment" name="Comment"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="button is-link" [disabled]="!FormData.valid">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

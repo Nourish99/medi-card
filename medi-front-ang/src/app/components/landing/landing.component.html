@@ -1,7 +1,7 @@
 <section class="landing-header">
     <div class="background-image">
         <img src="https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg" alt="">
-    </div>    
+    </div>
     <div class="background-content">
         <div class="columns is-flex is-justify-content-center is-align-items-center" style="height: 100%;">
             <div class="column is-8">
@@ -12,14 +12,14 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </section>
 <section class="landing-us py-5 my-5">
     <div class="container landing-cards-container">
-        <h1 class="title py-3">Porque SIAP</h1>
+        <h1 class="title py-3">Por que SIAP?</h1>
         <ng-container *ngFor="let card of landingCards; let i = index">
-            <div class="columns landing-card m-0 py-5" >
+            <div class="columns landing-card m-0 py-5">
                 <ng-container *ngIf="card.left">
                     <div class="column is-6 image-container">
                         <div>
@@ -57,10 +57,13 @@
     </div>
 </section>
 <section class="landing-patients">
+    <div class="container">
+        <h2>Pacientes</h2>
+        <div>
 
+        </div>
+    </div>
 </section>
 <section class="landing-contact">
-    <div class="container">
-        
-    </div>
+    <app-landing-contact></app-landing-contact>
 </section>

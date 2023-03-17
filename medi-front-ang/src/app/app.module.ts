@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { LandingContactComponent } from './components/landing/landing-contact/landing-contact.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
