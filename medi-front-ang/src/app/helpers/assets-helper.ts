@@ -6,6 +6,9 @@ export const DoctorIcon = "assets/icons/doctor-icon.svg";
 export const DoctorAvatarIcon = "assets/icons/doctor-avatar-icon.svg";
 export const FemaleDoctorAvatarIcon = "assets/icons/female-doctor-avatar-icon.svg";
 export const NurseAvatarIcon = "assets/icons/nurse-icon.svg";
+export const CheckIcon = "assets/icons/check-icon.svg";
+export const UserNameIcon = "assets/icons/user-icon.svg";
+export const PasswordIcon = "assets/icons/password-icon.svg";
 
 
 export const HospitalRoomImg = "assets/ui-images/hospital-room-img.jpg";

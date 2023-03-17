@@ -1,1 +1,47 @@
-<p>auth works!</p>
+<section class="login-container">
+    <div class="back-img">
+        <img src="https://images.pexels.com/photos/3376784/pexels-photo-3376784.jpeg" alt="aa">
+    </div>
+    <div class="container">
+        <div class="columns m-auto is-flex is-justify-content-center is-align-items-center">
+            <div class="column is-5 login-form-container">
+                <h1>Login</h1>
+                <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+                    <div class="field pt-4 pb-1">
+                        <label class="label">Username</label>
+                        <div class="control has-icons-left ">
+                            <input class="input" type="text" placeholder="Username" formControlName="Username">
+                            <span class="icon is-small is-left">
+                                <img [src]="usernameIcon" alt="sss">
+                            </span>
+                        </div>
+                        <p class="help is-danger"
+                            *ngIf="f['Username'].hasError('required') && (f['Username'].valid || f['Username'].dirty)">
+                            Username requerido</p>
+                    </div>
+                    <div class="field pt-4 pb-1">
+                        <label class="label">Username</label>
+                        <div class="control has-icons-left ">
+                            <input class="input" type="password" placeholder="Password" formControlName="Password">
+                            <span class="icon is-small is-left">
+                                <img [src]="passIcon" alt="sss">
+                            </span>
+                        </div>
+                        <p class="help is-danger"
+                            *ngIf="f['Password'].hasError('required') && (f['Password'].valid || f['Password'].dirty)">
+                            Password requerido</p>
+                        <p class="help is-danger"
+                            *ngIf="f['Password'].hasError('minlength') && (f['Password'].valid || f['Password'].dirty)">
+                            Password debe de ser minimo 6 caracteres</p>
+                    </div>
+                    <div class="field is-flex is-justify-content-center pt-4 pb-1">
+                        <div class="control">
+                            <button class="button is-link" type="submit" [disabled]="!FormData.valid">Ingresar</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
