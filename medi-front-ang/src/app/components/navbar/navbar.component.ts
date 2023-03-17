@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MediCardLogo } from 'src/app/helpers/assets-helper';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  logo = MediCardLogo;
 }

@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.less",
-              "node_modules/bulma/css/bulma.min.css"
+              "node_modules/bulma/css/bulma.min.css",
+              "src/assets/web-page/variables.less"
             ],
             "scripts": [
             ]

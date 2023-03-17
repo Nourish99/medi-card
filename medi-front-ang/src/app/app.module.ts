@@ -8,6 +8,8 @@ import { AuthComponent } from './components/auth/auth.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PatientsComponent } from './components/patients/patients.component';
+import { LandingContactComponent } from './components/landing/landing-contact/landing-contact.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PatientsComponent } from './components/patients/patients.component';
     AuthComponent,
     NavbarComponent,
     FooterComponent,
-    PatientsComponent
+    PatientsComponent,
+    LandingContactComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
