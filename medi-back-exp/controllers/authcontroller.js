@@ -24,7 +24,7 @@ const schemaLogin = Joi.object({
     password: Joi.string().min(6).max(1024).required()
 })
 
-export async function signup(req, res) {
+module.exports.signup =  async (req, res)=>{
     // validate user
     const { error } = userSchemaRegister.validate(req.body)
     
@@ -67,7 +67,7 @@ export async function signup(req, res) {
     }
 }
 
-export async function Login(req, res){
+module.exports.Login = async(req, res)=>{
     // validaciones
     const { error } = schemaLogin.validate(req.body);
     if (error) return res.status(400).json({ error: error.details[0].message })
@@ -82,10 +82,12 @@ export async function Login(req, res){
     const token = jwt.sign({
         name: user.name,
         id: user._id
-    }, process.env.TOKEN_SECRET)
+    }, process.env.TOKEN_SECRET,{
+        expiresIn: '30d'
+    })
     
     res.header('auth-token', token).json({
         error: null,
-        data: {token}
+        data: {token: token, userdata: user}
     })
 }

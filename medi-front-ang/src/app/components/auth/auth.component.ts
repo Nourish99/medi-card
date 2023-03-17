@@ -46,14 +46,15 @@ export class AuthComponent implements OnInit{
       password: this.FormData.value.Password}
       ).subscribe((res) => {
         console.log(res);
-        if(res.httpStatus == 200){
-          this.accountService.setAuth(res.result);
-          this.router.navigate(['dashboard']);
+        if(res.error == null){
+          this.accountService.setAuth(res.data);
           Swal.fire({
             title: 'Login Exitoso',
             icon: 'success',
             html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Bienvenido Admin!</strong>`,
           });
+          this.router.navigate(['dashboard']);
+         
         }else{
           Swal.fire({
             title: 'Login Error',

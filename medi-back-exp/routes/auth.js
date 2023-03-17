@@ -1,5 +1,5 @@
 const router = require('express').Router();
-import { Login, signup } from '../controllers/authcontroller';
+const { Login, signup } = require('../controllers/authcontroller');
 
 router.post('/register', signup );
 

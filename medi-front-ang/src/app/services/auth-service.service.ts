@@ -4,12 +4,17 @@ import { environment } from '../../environments/environment';
 import { HttpServiceService } from './http-service.service';
 import { Router } from '@angular/router';
 import { StorageServiceService } from './storage-service.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-    urlComplete = 'api/user'
+    urlComplete = 'api/user';
+
+    $auth: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    _auth: Observable<boolean> = this.$auth.asObservable();
+  
 
   constructor(
     private http: HttpServiceService,
@@ -22,6 +27,7 @@ export class AuthServiceService {
   }
 
   setAuth(user: any) {
+    this.$auth.next(true);
     this.storageService.setItem('user-info', JSON.stringify(user));
   }
 
@@ -31,7 +37,6 @@ export class AuthServiceService {
 
   async logOut() {
     await this.storageService.deleteItem('user-info');
-    this.router.navigate(['login']);
   }
 
   isLogged() {
@@ -45,10 +50,12 @@ export class AuthServiceService {
     const token = JSON.parse(user).token;
     const payload = atob(token.split('.')[1]);
     const parsedPayload = JSON.parse(payload);
+    const datep = new Date();
 
-    if (!(parsedPayload.exp > Date.now() / 1000)) {
+    if (!(parsedPayload.exp > datep.getTime() / 1000)) {
       console.log('El token ha expirado');
       this.storageService.deleteItem('user-info');
+      this.$auth.next(false);
       return false;
     }
 
