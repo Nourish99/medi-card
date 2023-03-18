@@ -25,9 +25,10 @@ mongoose.connect(uri,
 .then(() => console.log('Base de datos conectada'))
 .catch(e => console.log('error db:', e))
 // import routes
-const authRoutes = require('./routes/auth');
 // route middlewares
-app.use('/api/user', authRoutes);
+
+const router = require('./routes');
+app.use('/api', router);
 
 app.get('/', (req, res) => {
     res.json({
