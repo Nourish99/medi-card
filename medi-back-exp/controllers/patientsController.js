@@ -74,8 +74,9 @@ module.exports = {
     
     },
     editPatient: async (req, res)=>{
-        const userId = req.params.id;
+        const userId = req.body.id;
         const patient = await Patient.findById(userId);
+        console.log(userId, patient, req.body)
         if (!patient) return res.status(400).json({ error: 'Paciente no encontrado' });
 
         const { error } = patientEditSchema.validate(req.body)
@@ -83,22 +84,22 @@ module.exports = {
         if (error) {
             return res.status(400).json({error: error.details[0].message})
         }
-
-        const newPatient = new Patient({
-            name: req.body?.name ? req.body?.name : patient.name,
-            lastname: req.body?.lastname ? req.body?.lastname : patient.lastname,
-            age: req.body?.age ? req.body?.age : patient.age,
-            address: req.body?.address ? req.body?.address : patient.address,
-            birthdate: req.body?.birthdate ? req.body?.birthdate : patient.birthdate,
-            gender: req.body?.gender ? req.body?.gender : patient.gender,
-            room: req.body?.room ? req.body?.room : patient.room,
-            illness: req.body?.illness ? req.body?.illness : patient.illness,
-            medicines: req.body?.medicines ? req.body?.medicines : patient.medicines,
-            recomendations: req.body?.recomendations ? req.body?.recomendations : patient.recomendations
-        });
-
         try {
-            const updated = await Patient.findByIdAndUpdate(userId,newPatient);
+            const query = {
+                name: req.body.name ? req.body?.name : patient.name,
+                lastname: req.body.lastname ? req.body?.lastname : patient.lastname,
+                age: req.body.age ? req.body?.age : patient.age,
+                address: req.body.address ? req.body?.address : patient.address,
+                birthdate: req.body.birthdate ? req.body?.birthdate : patient.birthdate,
+                gender: req.body.gender ? req.body?.gender : patient.gender,
+                room: req.body.room ? req.body?.room : patient.room,
+                illness: req.body.illness ? req.body?.illness : patient.illness,
+                medicines: req.body.medicines ? req.body?.medicines : patient.medicines,
+                recomendations: req.body.recomendations ? req.body?.recomendations : patient.recomendations
+            }
+            const updated = await Patient.findByIdAndUpdate(userId, query, {
+                returnDocument:'after'
+            });
 
             if(!updated) return res.status(400).json({ error: 'Error al actualizar' });
 
