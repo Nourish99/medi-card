@@ -1,0 +1,39 @@
+@import url('../../../../assets/web-page/variables.less');
+
+.new-patient-form-container {
+ height: calc(100vh - 56px);
+ position: relative;
+
+ .container {
+  height: 100%;
+
+  .columns {
+   height: 100%;
+  }
+
+  .patient-form-container {
+   min-height: 350px;
+   background: rgb(255 248 248 / 67%);
+   border-radius: 16px;
+   box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+   backdrop-filter: blur(5.2px);
+   border: 1px solid rgb(255 248 248 / 7%);
+   padding: 1.5rem;
+
+   h1 {
+    text-align: center;
+    font-family: @body-font;
+    font-size: 48px;
+    font-weight: 800;
+    color: @black-color;
+   }
+
+   .field {
+    img {
+     height: 24px;
+     width: 24px;
+    }
+   }
+  }
+ }
+}

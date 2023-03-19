@@ -5,6 +5,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PatientsComponent } from './components/patients/patients.component';
+import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent}, 
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path:'patients',
     component: PatientsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'patient-form',
+    component: PatientFormComponent,
     canActivate: [AuthGuard]
   }
 ];

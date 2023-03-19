@@ -1,12 +1,15 @@
 <section class="patients-container">
     <h1 class="patients-title">Pacientes</h1>
-    <div class="container-fluid is-flex is-justify-content-center pb-5">
+    <div class="container is-flex is-justify-content-space-evenly pb-5 is-align-items-end">
         <form [formGroup]="searchForm">
             <div class="field">
                 <label for="" class="label">Busqueda</label>
                 <input class="input" formControlName="search" />
             </div>
         </form>
+        <button class="button is-success" (click)="navigatePatient()">
+            <span>Nuevo paciente</span>
+        </button>
     </div>
     <div class="container">
         <div class="columns is-flex flex-wrap">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserNameIcon } from 'src/app/helpers/assets-helper';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { PatientServiceService } from 'src/app/services/patient-service.service';
@@ -33,7 +34,7 @@ export class PatientsComponent implements OnInit {
   patientChoose = null;
 
   constructor(private _patientService: PatientServiceService, private formBuilder: FormBuilder,
-    private _authService: AuthServiceService){
+    private _authService: AuthServiceService, private _router: Router){
     this.searchForm = this.formBuilder.group({
       search: '',
     });
@@ -82,6 +83,10 @@ export class PatientsComponent implements OnInit {
   onCloseModal(event: any){
     this.showModal = false;
     this.patientChoose = null;
+  }
+
+  navigatePatient(){
+    this._router.navigate(['patient-form']);
   }
 
   deletePatient(userId:string){
