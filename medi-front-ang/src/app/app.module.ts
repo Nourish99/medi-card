@@ -12,6 +12,9 @@ import { LandingContactComponent } from './components/landing/landing-contact/la
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchPatientPipe } from './pipes/search-patient.pipe';
+import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
+import { PatientDetailModalComponent } from './components/patients/patient-detail-modal/patient-detail-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     PatientsComponent,
     LandingContactComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    SearchPatientPipe,
+    PatientFormComponent,
+    PatientDetailModalComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PatientsComponent } from './components/patients/patients.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent}, 
@@ -11,6 +12,11 @@ const routes: Routes = [
   {
     path: 'dashboard', 
     component: AdminDashboardComponent, 
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'patients',
+    component: PatientsComponent,
     canActivate: [AuthGuard]
   }
 ];

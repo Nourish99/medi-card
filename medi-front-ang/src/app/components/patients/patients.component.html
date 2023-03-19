@@ -1,1 +1,65 @@
-<p>patients works!</p>
+<section class="patients-container">
+    <h1 class="patients-title">Pacientes</h1>
+    <div class="container-fluid is-flex is-justify-content-center pb-5">
+        <form [formGroup]="searchForm">
+            <div class="field">
+                <label for="" class="label">Busqueda</label>
+                <input class="input" formControlName="search" />
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        <div class="columns is-flex flex-wrap">
+            <ng-container *ngFor="let pat of patientList | searchPatientFilter: searchForm.value.search; let i = index">
+                <div class="column is-12-mobile is-8-tablet is-6-desktop is-6-widescreen is-6-fullhd">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-left">
+                                    <figure class="image is-48x48">
+                                        <img [src]="ImageProfile(pat.gender)" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <p class="title is-4">{{fullName(pat.name,pat.lastname)}}</p>
+                                    <p class="subtitle is-6">Edad: {{pat.age}}</p>
+                                </div>
+                            </div>
+
+                            <div class="content">
+                                <table class="table">
+                                    <tr>
+                                        <td>Enfermedad</td>
+                                        <td>{{pat.illness}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Habitacion</td>
+                                        <td>{{pat.room}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Genero</td>
+                                        <td>{{pat.gender}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ingreso</td>
+                                        <td><time datetime="2016-1-1">{{formatedBirthDate(pat.birthdate)}}</time></td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a class="card-footer-item" (click)="openSigns(pat)">Signos</a>
+                            <a class="card-footer-item">Editar</a>
+                            <a class="card-footer-item" [ngClass]="!isAdmin?'Disabled':''"
+                                (click)="deletePatient(pat._id)">Eliminar</a>
+                        </footer>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>
+
+<app-patient-detail-modal *ngIf="showModal" [patient]="patientChoose"
+    (closeModal)="onCloseModal($event)"></app-patient-detail-modal>

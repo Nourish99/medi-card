@@ -81,4 +81,28 @@ export class AuthServiceService {
     const token = JSON.parse(user).token;
     return token;
   }
+
+  getUserRole(){
+    const user = this.storageService.getItem('user-info');
+
+    if (!user) {
+      console.log('No hay user logueado');
+      return false;
+    }
+
+    const role = JSON.parse(user).userdata.role;
+    return role;
+  }
+
+  isAdmin(){
+    return this.getUserRole() == 'admin'
+  }
+
+  isNurse(){
+    return this.getUserRole() == 'nurse'
+  }
+
+  isDoctor(){
+    return this.getUserRole() == 'doctor'
+  }
 }

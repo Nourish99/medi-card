@@ -45,7 +45,6 @@ export class AuthComponent implements OnInit{
       username: this.FormData.value.Username, 
       password: this.FormData.value.Password}
       ).subscribe((res) => {
-        console.log(res);
         if(res.error == null){
           this.accountService.setAuth(res.data);
           Swal.fire({
@@ -53,7 +52,12 @@ export class AuthComponent implements OnInit{
             icon: 'success',
             html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Bienvenido Admin!</strong>`,
           });
-          this.router.navigate(['dashboard']);
+          const role = res.data?.userdata?.role
+          if(role == 'admin'){
+            this.router.navigate(['dashboard']);
+          }else{
+            this.router.navigate(['patients']);
+          }
          
         }else{
           Swal.fire({
@@ -67,7 +71,7 @@ export class AuthComponent implements OnInit{
       Swal.fire({
         title: 'Login Error',
         icon: 'error',
-        text: err,
+        html: `<strong class="FontMontserratTitles" style="font-size: 22px;">${err.error.error}</strong>`,
       });
     })
 

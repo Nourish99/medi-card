@@ -1,0 +1,55 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">{{patient?.name}}</p>
+            <button class="delete" aria-label="close" (click)="closeMod()"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+            <div class="animation-cont">
+                <div class="container">
+                    <div class="grid">
+                        <div class="col-10_sm-12">PATIENT ID {{patient?._id}}</div>
+                        <div class="col-2_sm-12">{{currentDate}}</div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="grid">
+                        <div class="col-10_sm-12 graph">
+                            <div class="cell cell-1"></div>
+                            <div class="cell cell-2"></div>
+                            <div class="cell cell-3"></div>
+                            <div class="cell cell-4"></div>
+                            <div class="cell cell-5"></div>
+                            <div class="cell cell-6"></div>
+                            <div class="col-2_sm-12 heart-beat-cont ">
+                                <div class="number-1"><span>&#9829;</span></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="patient-details is-flex is-flex-direction-column">
+                <div class="patient-detail-cont">
+                    <h2>Medicinas</h2>
+                    <ul>
+                        <li *ngFor="let med of patient.medicines">{{med}}</li>
+                    </ul>
+                </div>
+                <div class="patient-detail-cont">
+                    <h2>Recomendaciones</h2>
+                    <ul>
+                        <li *ngFor="let req of patient.recomendations">{{req}}</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer> -->
+    </div>
+</div>

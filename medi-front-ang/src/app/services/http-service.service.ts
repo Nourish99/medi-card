@@ -20,7 +20,7 @@ export class HttpServiceService {
   }
 
   getToken(module: string, service: string, token: string, contentType: string = 'application/json') {
-    const httpHeadersToken = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const httpHeadersToken = new HttpHeaders().set('auth-token', token);
     if (contentType != 'multipart/form-data') {
       httpHeadersToken.set('content-type', contentType);
     }
@@ -30,7 +30,7 @@ export class HttpServiceService {
 
   getWithToken(module: string, service: string, token: string) {
     const url = this.urlBase + module + service;
-    const httpHeadersToken = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const httpHeadersToken = new HttpHeaders().set('auth-token',token);
     return this.http.get<any>(url, { headers: httpHeadersToken });
   }
   post(module: string, service: string, obj: any) {
@@ -39,7 +39,7 @@ export class HttpServiceService {
   }
 
   postToken(module: string, service: string, obj: any, token: string, contentType: string = 'application/json') {
-    const httpHeadersToken = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const httpHeadersToken = new HttpHeaders().set('auth-token', token);
     if (contentType != 'multipart/form-data') {
       httpHeadersToken.set('content-type', contentType);
     }
@@ -52,9 +52,18 @@ export class HttpServiceService {
     return this.http.put<any>(url, obj, { headers: this.httpHeaders });
   }
 
+  patch(module: string, service: string, obj: any, token: string, contentType: string = 'application/json') {
+    const httpHeadersToken = new HttpHeaders().set('auth-token', token);
+    if (contentType != 'multipart/form-data') {
+      httpHeadersToken.set('content-type', contentType);
+    }
+    const url = this.urlBase + module + service;
+    return this.http.patch<any>(url, obj, { headers: httpHeadersToken });
+  }
+
   delete(module: string, service: string, token: string) {
     const url = this.urlBase + module + service;
-    const httpHeadersToken = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const httpHeadersToken = new HttpHeaders().set('auth-token', token);
     return this.http.delete<any>(url, { headers: httpHeadersToken });
   }
 
