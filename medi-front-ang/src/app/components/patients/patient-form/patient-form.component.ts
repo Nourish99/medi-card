@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-form',
@@ -14,7 +14,7 @@ export class PatientFormComponent implements OnInit{
     age: new FormControl(0, [Validators.required]),
     address: new FormControl(''),
     birthdate: new FormControl(new Date()),
-    gender: new FormControl(''),
+    gender: new FormControl('hombre'),
     room: new FormControl(0, [Validators.required]),
     illness: new FormControl('')
 
@@ -45,6 +45,18 @@ export class PatientFormComponent implements OnInit{
 
   removeRecomendation(id: number){
     this.recomendations.splice(id,1);
+  }
+
+   get f(): { [key: string]: AbstractControl } {
+    return this.FormData.controls;
+  }
+
+   onSubmit(FormData: FormGroup) {
+    console.log(FormData)
+    if(FormData.invalid){
+      return;
+    }
+    console.log(FormData)
   }
 
 }
