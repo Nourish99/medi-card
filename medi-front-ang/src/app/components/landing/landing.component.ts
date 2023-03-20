@@ -11,19 +11,19 @@ export class LandingComponent {
   landingCards = [
     {
       title: "Quienes somos",
-      text: "Hoy somos el centro privado cardiológico más completo del país en donde nuestro principal objetivo es cubrir toda la atención del paciente en beneficio de su salud, brindando atención medica profesional de alta calidad en un ambiente seguro. Por lo que se ha comprometido desde sus inicios con altos estándares de calidad que ha venido cumpliendo a través de certificaciones y acreditaciones:",
+      text: "Somos un sistema de gestión de datos de salud que permite a los hospitales almacenar, administrar y compartir su información médica con profesionales de la salud, familiares y otros cuidadores de confianza.",
       image: HeartbeatMachineImg,
       left: false
     },
     {
       title: "Mision",
-      text: "Cumplir por sobre todas las cosas con el compromiso de luchar por la salud y el bienestar de nuestros pacientes, cuidando de la vida humana a la que respetamos y valoramos. En reconocimiento al compromiso entregamos día a día, lo mejor de nosotros, con la calidad y calidez que somos capaces de desarrollar.",
+      text: "Nuestra misión es desarrollar un sistema avanzado de información al paciente que ofrezca un acceso seguro y fácil a la información médica de cada persona, permitiéndoles comprender y gestionar su propia salud. Nos esforzamos por ser líderes en innovación tecnológica para mejorar la experiencia del paciente y promover una atención médica más centrada en el paciente.",
       image: DoctorFemaleImg,
       left: true
     },
     {
       title: "Vision",
-      text: "Somos una institución que a través de nuestra misión y nuestros valores, estaremos constantemente ofreciendo los adelantos de la ciencia médica con la más alta calidad, siempre al servicio de nuestro prójimo.",
+      text: "Nuestra visión es mejorar la calidad de vida de los pacientes mediante un sistema avanzado de información al paciente que les permita acceder a información médica confiable, actualizada y fácil de entender. Además de ofrecer un servicio de innovación promoviendo la satisfacción de calidad de la atención a las necesidades del enfermero paciente y familia donde las personas puedan obtener información en tiempo real acerca del estado de salud de sus usuarios.",
       image: OperationImg,
       left: false
     },
@@ -52,5 +52,11 @@ export class LandingComponent {
       title: "Pago de servicios",
       icon: CreditCardIcon
     },
+  ];
+
+  landingPatientServices = [
+    {
+      
+    }
   ]
 }
