@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {userSchema} = require("./User")
 
 const PatientSchema = mongoose.Schema({
     name:{
@@ -45,7 +46,27 @@ const PatientSchema = mongoose.Schema({
     },
     recomendations:{
         type: [String]
+    },
+    radiographies: {
+        type: [String]
+    },
+    nurseNotes: {
+        type: String
+    },
+    nursesAtendence: {
+        type: [userSchema]
+    },
+    doctorAttendence:{
+        type: userSchema,
+        default: undefined
+    },
+    familiar:{
+        type: userSchema,
+        default: undefined
     }
 });
 
-module.exports = mongoose.model('Patient', PatientSchema);
+module.exports.patientSchema = PatientSchema;
+
+
+module.exports.patientModel = mongoose.model('Patient', PatientSchema);

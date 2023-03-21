@@ -1,12 +1,15 @@
 const router = require('express').Router();
-const User = require('../models/User');
+const {userModel} = require('../models/User');
 const jwt = require('jsonwebtoken');
+const {patientModel} = require('../models/Patient')
 
 // constraseña
 const bcrypt = require('bcrypt');
 
 // validation
 const Joi = require('@hapi/joi');
+
+const User = userModel;
 
 const userSchemaRegister = Joi.object({
     username: Joi.string().min(6).max(255).required(),
@@ -16,7 +19,10 @@ const userSchemaRegister = Joi.object({
     password: Joi.string().min(6).max(1024).required(),
     age: Joi.number().required(),
     gender: Joi.string(),
-    role: Joi.string().required()
+    role: Joi.string().required(),
+    cedule: Joi.string(),
+    schedule: Joi.string(),
+    patientId: Joi.string()
 });
 
 const schemaLogin = Joi.object({
@@ -42,11 +48,12 @@ module.exports.signup =  async (req, res)=>{
         return res.status(400).json({error: 'Username ya registrado'})
     }
 
+   
+
     // hash contraseña
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
-
-    const user = new User({
+    const rawUser = {
         username: req.body.username,
         name: req.body.name,
         lastname: req.body.lastname,
@@ -55,9 +62,45 @@ module.exports.signup =  async (req, res)=>{
         age: req.body.age,
         gender: req.body?.gender,
         role: req.body?.role
-    });
+    }
+
+    const role = req.body?.role ? req.body?.role : "";
+    let patId = '';
+    let pat = null;
+    if( role == 'nurse'){
+        rawUser.nurse = {
+            schedule: req.body?.schedule
+        }
+    }else if(role == 'doctor'){
+        rawUser.doctor = {
+            cedule: req.body?.cedule
+        }
+    }else if(role == 'familiar'){
+        patId = req.body?.patientId;
+        pat = await patientModel.findById(patId)
+        if(!pat){
+            return res.status(400).json({error: 'No existe ese paciente'})
+        }
+        if(pat.familiar){
+            return res.status(400).json({error: 'Ya tiene asignado un familiar'})
+        }
+        rawUser.familiar = pat
+    }
+
+
+    const user = new User(rawUser);
     try {
         const savedUser = await user.save();
+        if(role == 'familiar'){
+            pat.familiar = savedUser;
+            delete pat['_id'];
+            const updPaiente = await patientModel.findByIdAndUpdate(patId, pat,{
+                returnDocument:'after'
+            });
+            if(!updPaiente){
+                return res.status(400).json({error: 'Ya tiene asignado un familiar 2'})
+            }
+        }
         res.json({
             error: null,
             data: savedUser

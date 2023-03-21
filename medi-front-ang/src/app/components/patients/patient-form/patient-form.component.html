@@ -25,7 +25,7 @@
                     <div class="field pt-4 pb-1">
                         <label class="label">Edad</label>
                         <div class="control ">
-                            <input class="input" type="number" placeholder="Edad" formControlName="age">
+                            <input class="input" type="number" placeholder="Edad" formControlName="age" min="0">
                         </div>
                         <p class="help is-danger"
                             *ngIf="f['age'].hasError('required') && (f['age'].valid || f['age'].dirty)">
@@ -43,7 +43,7 @@
                     <div class="field pt-4 pb-1">
                         <label class="label">Fecha de ingreso</label>
                         <div class="control ">
-                            <input class="input" type="datetime" placeholder="fecha" formControlName="birthdate">
+                            <input class="input" type="datetime-local" placeholder="fecha" formControlName="birthdate">
                         </div>
                         <p class="help is-danger"
                             *ngIf="f['birthdate'].hasError('required') && (f['birthdate'].valid || f['birthdate'].dirty)">
@@ -64,7 +64,7 @@
                     <div class="field pt-4 pb-1">
                         <label class="label">Habitacion</label>
                         <div class="control ">
-                            <input class="input" type="number" placeholder="Habitacion" formControlName="room">
+                            <input class="input" type="number" placeholder="Habitacion" formControlName="room" min="0">
                         </div>
                         <p class="help is-danger"
                             *ngIf="f['room'].hasError('required') && (f['room'].valid || f['room'].dirty)">

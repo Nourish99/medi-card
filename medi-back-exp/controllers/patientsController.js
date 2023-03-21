@@ -1,5 +1,7 @@
 const Joi = require('@hapi/joi');
-const Patient = require('../models/Patient');
+const { patientModel} = require('../models/Patient');
+
+const Patient = patientModel
 
 const patientSchema = Joi.object({
     name: Joi.string().min(6).max(255).required(),
@@ -25,8 +27,14 @@ const patientEditSchema =  Joi.object({
     room: Joi.number(),
     illness: Joi.string(),
     medicines: Joi.array(),
-    recomendations: Joi.array()
+    recomendations: Joi.array(),
+    nurseNotes: Joi.string()
 });
+
+const patientRadios = Joi.object({
+    id: Joi.string().required(),
+    radios: Joi.array().required()
+})
 
 module.exports = {
     allPatiens: async (req, res)=>{
@@ -94,8 +102,9 @@ module.exports = {
                 gender: req.body.gender ? req.body?.gender : patient.gender,
                 room: req.body.room ? req.body?.room : patient.room,
                 illness: req.body.illness ? req.body?.illness : patient.illness,
-                medicines: req.body.medicines ? req.body?.medicines : patient.medicines,
-                recomendations: req.body.recomendations ? req.body?.recomendations : patient.recomendations
+                medicines: req.body.medicines ? req.body?.medicines : patient?.medicines,
+                recomendations: req.body.recomendations ? req.body?.recomendations : patient?.recomendations,
+                nurseNotes: req.body?.nurseNotes ? req.body?.nurseNotes : patient?.nurseNotes
             }
             const updated = await Patient.findByIdAndUpdate(userId, query, {
                 returnDocument:'after'
@@ -145,6 +154,21 @@ module.exports = {
         }catch(err){
             res.status(400).json({error})
         }
+    },
+    addPatientRadiographies(){
+        const { error } = patientRadios.validate(req.body)
+    
+        if (error) {
+            return res.status(400).json({error: error.details[0].message})
+        }
+        //left images
+
+    },
+    addDoctorToPatient(){
+
+    },
+    addNurseToPatient(){
+
     }
 }
 

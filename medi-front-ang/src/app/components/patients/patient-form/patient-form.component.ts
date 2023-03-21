@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PatientServiceService } from 'src/app/services/patient-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-form',
@@ -25,7 +28,7 @@ export class PatientFormComponent implements OnInit{
 
   medicine = '';
   recomendation = '';
-  constructor(){}
+  constructor(private _patientService: PatientServiceService, private router: Router){}
 
   ngOnInit(): void {
       
@@ -52,11 +55,33 @@ export class PatientFormComponent implements OnInit{
   }
 
    onSubmit(FormData: FormGroup) {
-    console.log(FormData)
     if(FormData.invalid){
       return;
     }
-    console.log(FormData)
+    this._patientService.newPatient(FormData).subscribe((res)=>{
+      if(res.error == null){
+       
+        Swal.fire({
+          title: 'Login Exitoso',
+          icon: 'success',
+          html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Bienvenido Admin!</strong>`,
+        });
+        this.router.navigate(['patients']);
+       
+      }else{
+        Swal.fire({
+          title: 'Login Error',
+          icon: 'error',
+          html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Credenciales invalidas!</strong>`,
+        });
+      }
+    }, (err)=>{
+      Swal.fire({
+        title: 'Login Error',
+        icon: 'error',
+        html: `<strong class="FontMontserratTitles" style="font-size: 22px;">${err.error.error}</strong>`,
+      });
+    })
   }
 
 }

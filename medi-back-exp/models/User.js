@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const {patientSchema} = require('./Patient')
+
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -47,10 +49,27 @@ const userSchema = mongoose.Schema({
     role:{
         type: String,
         required: true,
-        enum : ['doctor','nurse','admin'],
+        enum : ['doctor','nurse','admin', 'familiar'],
         default: 'doctor'
+    },
+    doctor:{
+        cedule: {
+            type: String
+        }
+    },
+    nurse: {
+        schedule: {
+            type: String,
+            enum : ['matutino','vespertino','mixto'],
+            default: 'matutino'
+        }
+    },
+    familiar:{
+        type: patientSchema
     }
     
 })
 
-module.exports = mongoose.model('User', userSchema);
+module.exports.userSchema = userSchema;
+
+module.exports.userModel = mongoose.model('User', userSchema);
