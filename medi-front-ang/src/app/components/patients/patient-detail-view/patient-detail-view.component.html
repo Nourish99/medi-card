@@ -163,4 +163,5 @@
     (closeModal)="closeSigns($event)"></app-patient-detail-modal>
 
 <app-patient-user-list-modal *ngIf="addUserToPatient" (closeModal)="closeUserChoose($event)"
-    [additionType]="typeUserChoose" [patientId]="patientData?._id"></app-patient-user-list-modal>
+    [additionType]="typeUserChoose" [patientId]="patientData?._id"
+    [currentNurse]="currentNurses"></app-patient-user-list-modal>

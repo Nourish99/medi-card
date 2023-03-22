@@ -16,6 +16,7 @@ export class PatientUserListModalComponent implements OnInit, OnDestroy {
 
   @Input() additionType = '';
   @Input() patientId = '';
+  @Input() currentNurse: any[] = [];
 
   listOfUsers = [];
 
@@ -51,7 +52,13 @@ export class PatientUserListModalComponent implements OnInit, OnDestroy {
 
     }else{
       this._userService.getAllNurses().subscribe((data)=>{
-        this.listOfUsers = data.data;
+        if(this.currentNurse.length > 0){
+          this.listOfUsers = data.data.filter((item: any)=>{
+            return item._id != this.currentNurse[0]?._id || item.nurse.schedule != this.currentNurse[0]?.nurse?.schedule
+          })
+        }else{
+          this.listOfUsers = data.data;
+        }
       }, (err)=>{
         console.log(err);
       })
