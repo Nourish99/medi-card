@@ -42,13 +42,13 @@ const PatientSchema = mongoose.Schema({
         type: String
     },
     medicines:{
-        type: [String]
+        type: String
     },
     recomendations:{
-        type: [String]
+        type: String
     },
     radiographies: {
-        type: [String]
+        type: String
     },
     nurseNotes: {
         type: String
