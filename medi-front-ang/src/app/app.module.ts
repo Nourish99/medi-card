@@ -20,6 +20,7 @@ import { FamiliarFormComponent } from './components/patients/familiar-form/famil
 import { PatientUserListModalComponent } from './components/patients/patient-detail-view/patient-user-list-modal/patient-user-list-modal.component';
 import { PatientTextModalComponent } from './components/patients/patient-detail-view/patient-text-modal/patient-text-modal.component';
 import { PatientImgsModalComponent } from './components/patients/patient-detail-view/patient-imgs-modal/patient-imgs-modal.component';
+import { QuillModule } from 'ngx-quill'
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PatientImgsModalComponent } from './components/patients/patient-detail-
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -32,9 +32,13 @@
             "styles": [
               "src/styles.less",
               "node_modules/bulma/css/bulma.min.css",
-              "src/assets/web-page/variables.less"
+              "src/assets/web-page/variables.less",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css"
             ],
             "scripts": [
+              "node_modules/quill/dist/quill.min.js"
             ]
           },
           "configurations": {
