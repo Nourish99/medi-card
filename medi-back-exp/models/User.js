@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {patientSchema} = require('./Patient')
+const {Schema} = mongoose
 
 const userSchema = mongoose.Schema({
     username: {
@@ -65,7 +65,7 @@ const userSchema = mongoose.Schema({
         }
     },
     familiar:{
-        type: patientSchema
+        type: Schema.Types.ObjectId, ref: 'Patient'
     }
     
 })

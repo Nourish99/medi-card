@@ -84,7 +84,7 @@ module.exports.signup =  async (req, res)=>{
         if(pat.familiar){
             return res.status(400).json({error: 'Ya tiene asignado un familiar'})
         }
-        rawUser.familiar = pat
+        rawUser.familiar = pat._id
     }
 
 
@@ -92,11 +92,11 @@ module.exports.signup =  async (req, res)=>{
     try {
         const savedUser = await user.save();
         if(role == 'familiar'){
-            pat.familiar = savedUser;
+            pat.familiar = savedUser._id;
             delete pat['_id'];
             const updPaiente = await patientModel.findByIdAndUpdate(patId, pat,{
                 returnDocument:'after'
-            });
+            }).populate('familiar');
             if(!updPaiente){
                 return res.status(400).json({error: 'Ya tiene asignado un familiar 2'})
             }

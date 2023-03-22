@@ -13,9 +13,10 @@ var corsOptions = {
 }
 app.use(cors(corsOptions));
 
+app.use(express.static('./server/public'))
 // capturar body
 app.use(bodyparser.urlencoded({ extended: false }));
-app.use(bodyparser.json());
+app.use(bodyparser.json({limit: '50mb'}));
 
 // Conexión a Base de datos
 const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.PASSWORD}@mediback.iab7nd7.mongodb.net/?retryWrites=true&w=majority`;

@@ -1,5 +1,8 @@
 const Joi = require('@hapi/joi');
 const { patientModel} = require('../models/Patient');
+const { userModel } = require('../models/User');
+const base64Img = require('base64-img');
+const fs = require('fs')
 
 const Patient = patientModel
 
@@ -36,10 +39,20 @@ const patientRadios = Joi.object({
     radios: Joi.array().required()
 })
 
+const doctorToPatient = Joi.object({
+    patientId: Joi.string().required(),
+    doctorId: Joi.string().required()
+})
+
+const nurseToPatient = Joi.object({
+    patientId: Joi.string().required(),
+    nurseId: Joi.string().required()
+})
+
 module.exports = {
     allPatiens: async (req, res)=>{
         try {
-            const patients = await Patient.find();
+            const patients = await Patient.find().populate(['doctorAttendence','nursesAtendence','familiar']);
             res.json({
                 error: null,
                 data: patients
@@ -108,7 +121,7 @@ module.exports = {
             }
             const updated = await Patient.findByIdAndUpdate(userId, query, {
                 returnDocument:'after'
-            });
+            }).populate(['nursesAtendence','doctorAttendence','familiar']);
 
             if(!updated) return res.status(400).json({ error: 'Error al actualizar' });
 
@@ -126,7 +139,7 @@ module.exports = {
         try {
             const userId = req.params.id;
 
-            const patient = await Patient.findById(userId);
+            const patient = await Patient.findById(userId).populate(['nursesAtendence','doctorAttendence','familiar']);
 
             if (!patient) return res.status(400).json({ error: 'Paciente no encontrado' });
 
@@ -152,22 +165,148 @@ module.exports = {
                 data: deleted
             })
         }catch(err){
-            res.status(400).json({error})
+            res.status(400).json({err})
         }
     },
-    addPatientRadiographies(){
+    addPatientRadiographies: async (req, res) =>{
         const { error } = patientRadios.validate(req.body)
     
         if (error) {
             return res.status(400).json({error: error.details[0].message})
         }
+
+        const patientId = req.body?.id;
+
+        const patient = await patientModel.findById(patientId);
+        if (!patient) return res.status(400).json({ error: 'Paciente no encontrado' });
+        
         //left images
+        const {radios} = req.body;
+        const filePaths = [];
+        const hostname = req.hostname;
+        const old = patient.radiographies;
+
+       if(old?.length > 0){
+        try {
+            
+            old.forEach(el => {
+                const r = el.split('/')[1];
+                if(fs.existsSync(r)){
+                    fs.unlinkSync(`./server/public/${r}`);
+                }
+            })
+        } catch(err) {
+            console.error(err)
+        }
+       }
+        
+        try{
+            radios.forEach(element => {
+                const fp = base64Img.imgSync(element,'./server/public', Date.now() );
+                const patArr = fp.split('/');
+                const fl = patArr[patArr.length - 1]
+                filePaths.push(`${hostname}/${fl}`)
+            });
+            patient.radiographies = filePaths;
+            delete patient['_id'];
+            const updated = await patientModel.findByIdAndUpdate(patientId, patient,{
+                returnDocument:'after'
+            });
+            return res.json({
+                error: null,
+                data: {
+                    routes: filePaths,
+                    patient: updated
+                }
+            })
+        }catch(err){
+            res.status(400).json({err})
+        }
 
     },
-    addDoctorToPatient(){
+    addDoctorToPatient:async (req, res) =>{
+        const { error } = doctorToPatient.validate(req.body)
+    
+        if (error) {
+            return res.status(400).json({error: error.details[0].message})
+        }
+
+        const patientId = req.body?.patientId;
+        const doctorId = req.body?.doctorId;
+
+        const patient = await patientModel.findById(patientId);
+        if (!patient) return res.status(400).json({ error: 'Paciente no encontrado' });
+
+        const doctor = await userModel.findById(doctorId);
+        if (!doctor) return res.status(400).json({ error: 'Doctor no encontrado' });
+
+        try {
+            const upd = await patientModel.findByIdAndUpdate(patientId, {doctorAttendence: doctorId},{
+                returnDocument:'after'
+            }).populate('doctorAttendence');
+
+            if(!upd) return res.status(400).json({ error: 'Error al actualizar' });
+
+            res.json({
+                error: null,
+                data: upd
+            })
+        } catch (error) {
+            res.status(400).json({error})
+            
+        }
 
     },
-    addNurseToPatient(){
+    addNurseToPatient: async (req, res) =>{
+        const { error } = nurseToPatient.validate(req.body)
+    
+        if (error) {
+            return res.status(400).json({error: error.details[0].message})
+        }
+        const patientId = req.body?.patientId;
+        const nurseId = req.body?.nurseId;
+
+        const patient = await patientModel.findById(patientId);
+        if (!patient) return res.status(400).json({ error: 'Paciente no encontrado' });
+
+        const nurse = await userModel.findById(nurseId);
+        if (!nurse) return res.status(400).json({ error: 'Doctor no encontrado' });
+
+        let newNurses = [];
+        const hasScheduleBusy = patient?.nursesAtendence?.some((item)=>{
+            return item.nurse.schedule == nurse.nurse.schedule;
+        })
+
+        if(hasScheduleBusy){
+            newNurses = patient?.nursesAtendence?.map((item)=>{
+                if(item?.nurse?.schedule == nurse?.nurse?.schedule){
+                    return nurse._id
+                }else{
+                    return item._id
+                }
+            })
+            patient.nursesAtendence = newNurses;
+        }else{
+            patient?.nursesAtendence?.push(nurse._id);
+        }
+            
+        delete patient['_id'];
+
+        try {
+            const upd = await patientModel.findByIdAndUpdate(patientId, patient,{
+                returnDocument:'after'
+            }).populate('nursesAtendence');
+
+            if(!upd) return res.status(400).json({ error: 'Error al actualizar' });
+
+            res.json({
+                error: null,
+                data: upd
+            })
+        } catch (error) {
+            res.status(400).json({error})
+            
+        }
 
     }
 }

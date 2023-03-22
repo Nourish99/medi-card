@@ -1,14 +1,20 @@
 const router = require('express').Router();
-const {allPatiens, newPatient, editPatient, getPatientById} = require('../controllers/patientsController');
+const patientC = require('../controllers/patientsController');
 const { route } = require('./auth');
 
-router.post('/newPatient', newPatient);
-router.patch('/editPatient', editPatient);
+router.post('/newPatient', patientC.newPatient);
+router.patch('/editPatient', patientC.editPatient);
 
-router.get('/getAllPatients', allPatiens);
+router.get('/getAllPatients', patientC.allPatiens);
 
-router.get('/getPatien/:id', getPatientById);
+router.get('/getPatien/:id', patientC.getPatientById);
 
-router.delete('/deletePatient/:id',)
+router.delete('/deletePatient/:id',patientC.deletePatient)
+
+router.post('/addRadios', patientC.addPatientRadiographies)
+
+router.post('/addDoctor', patientC.addDoctorToPatient)
+
+router.post('/addNurse', patientC.addNurseToPatient)
 
 module.exports = router;
