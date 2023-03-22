@@ -48,7 +48,7 @@ const PatientSchema = mongoose.Schema({
         type: String
     },
     radiographies: {
-        type: String
+        type: [String]
     },
     nurseNotes: {
         type: String

@@ -15,8 +15,8 @@ const patientSchema = Joi.object({
     gender: Joi.string().valid('hombre','mujer','otro'),
     room: Joi.number(),
     illness: Joi.string(),
-    medicines: Joi.array(),
-    recomendations: Joi.array()
+    medicines: Joi.string().min(0),
+    recomendations: Joi.string()
 });
 
 const patientEditSchema =  Joi.object({
@@ -29,8 +29,8 @@ const patientEditSchema =  Joi.object({
     gender: Joi.string().valid('hombre','mujer','otro'),
     room: Joi.number(),
     illness: Joi.string(),
-    medicines: Joi.array(),
-    recomendations: Joi.array(),
+    medicines: Joi.string(),
+    recomendations: Joi.string(),
     nurseNotes: Joi.string()
 });
 
