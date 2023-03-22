@@ -6,6 +6,8 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { AuthGuard } from './guards/auth.guard';
 import { PatientsComponent } from './components/patients/patients.component';
 import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
+import { PatientDetailViewComponent } from './components/patients/patient-detail-view/patient-detail-view.component';
+import { PatientDetailResolver } from './components/resolvers/patient-detail.resolver';
 
 const routes: Routes = [
   {path: '', component: LandingComponent}, 
@@ -24,6 +26,14 @@ const routes: Routes = [
     path:'patient-form',
     component: PatientFormComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path:'patients/:id',
+    component: PatientDetailViewComponent,
+    canActivate: [AuthGuard],
+    resolve:{
+      patientData: PatientDetailResolver
+    }
   }
 ];
 

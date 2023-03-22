@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchPatientPipe } from './pipes/search-patient.pipe';
 import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
 import { PatientDetailModalComponent } from './components/patients/patient-detail-modal/patient-detail-modal.component';
+import { PatientDetailViewComponent } from './components/patients/patient-detail-view/patient-detail-view.component';
+import { FamiliarFormComponent } from './components/patients/familiar-form/familiar-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { PatientDetailModalComponent } from './components/patients/patient-detai
     AdminDashboardComponent,
     SearchPatientPipe,
     PatientFormComponent,
-    PatientDetailModalComponent
+    PatientDetailModalComponent,
+    PatientDetailViewComponent,
+    FamiliarFormComponent
   ],
   imports: [
     BrowserModule,

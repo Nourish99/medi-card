@@ -1,0 +1,103 @@
+<section class="patient-detail-container">
+    <div class="container">
+        <div class="columns m-auto is-flex is-justify-content-center is-align-items-center">
+            <div class="column is-8 patient-detail-content-container">
+                <h1>Paciente: {{fullName}} </h1>
+                <div class="patient-contents is-flex is-justify-content-center py-5 is-flex-direction-column">
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Informacion general</h2>
+                        <table class="table w-100 ">
+                            <tr>
+                                <td>Enfermedad</td>
+                                <td>{{patientData.illness}}</td>
+                            </tr>
+                            <tr>
+                                <td>Habitacion</td>
+                                <td>{{patientData.room}}</td>
+                            </tr>
+                            <tr>
+                                <td>Genero</td>
+                                <td>{{patientData.gender}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ingreso</td>
+                                <td><time datetime="2016-1-1">{{formatedBirthDate(patientData.birthdate)}}</time></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Doctores</h2>
+                        <div class="doctors-contanier w-100 pl-4">
+                            <ng-container *ngIf="!hasDoctor">
+                                <p>No tiene doctor asignado</p>
+                                <button class="button is-success mt-4">Asignar uno</button>
+                            </ng-container>
+                            <ng-container *ngIf="hasDoctor">
+                                <div class="image-cont">
+                                    <img [src]="femaleIcon" alt="a">
+                                </div>
+                                <div class="content">
+                                    <h3>{{patientData?.doctorAttendence?.name}}</h3>
+                                    <p>{{patientData?.doctorAttendence?.doctor?.cedule}}</p>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Enfermeros</h2>
+                        <div class="pl-4">
+                            <ng-container *ngIf="!hasNurses">
+                                <p>No tiene enfermeros asignado</p>
+                                <button class="button is-success mt-4">Asignar uno</button>
+                            </ng-container>
+                            <ng-container *ngIf="hasNurses">
+                                <div *ngFor="let nur of currentNurses; let i = index">
+                                    <div class="image-cont">
+                                        <img [src]="femaleIcon" alt="a">
+                                    </div>
+                                    <div class="content">
+                                        <p>{{nur.name}}</p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Familiares</h2>
+                        <div class="pl-4">
+                            <ng-container *ngIf="!hasFamiliar">
+                                <p>No tiene familiares asignado</p>
+                                <button class="button is-success mt-4">Asignar uno</button>
+                            </ng-container>
+                            <ng-container *ngIf="hasFamiliar">
+                                <div class="image-cont">
+                                    <img [src]="femaleIcon" alt="a">
+                                </div>
+                                <div class="content">
+                                    <p>{{patientData?.familiar?.name}}</p>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Medicamentos</h2>
+                        <div class="medicines-container w-100 pl-4">
+                            <ul class="med-list">
+                                <li *ngFor="let med of patientMedicines; let i = index;">{{med}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Recomendaciones</h2>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Notas de enfermeria</h2>
+                    </div>
+                    <div class="detail-content-item ">
+                        <h2 class="py-4">Raiografias</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
