@@ -183,7 +183,6 @@ module.exports = {
         //left images
         const {radios} = req.body;
         const filePaths = [];
-        const hostname = req.hostname;
         const old = patient.radiographies;
 
        if(old?.length > 0){
@@ -205,7 +204,7 @@ module.exports = {
                 const fp = base64Img.imgSync(element,'./server/public', Date.now() );
                 const patArr = fp.split('/');
                 const fl = patArr[patArr.length - 1]
-                filePaths.push(`${hostname}/${fl}`)
+                filePaths.push(`${req.protocol}://${req.headers.host}/${fl}`)
             });
             patient.radiographies = filePaths;
             delete patient['_id'];
