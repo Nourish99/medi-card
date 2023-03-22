@@ -31,4 +31,12 @@ export class PatientServiceService {
   deletePatient(patientId:string){
     return this.http.delete(this.urlComplete,  '/deletePatient/'+patientId, this._authService.getToken())
   }
+
+  addDoctorToPatient(patientInfo:any){
+    return this.http.postToken(this.urlComplete, '/addDoctor', patientInfo,this._authService.getToken());
+  }
+  
+  addNurseToPatient(patientInfo:any){
+    return this.http.postToken(this.urlComplete, '/addNurse', patientInfo,this._authService.getToken());
+  }
 }

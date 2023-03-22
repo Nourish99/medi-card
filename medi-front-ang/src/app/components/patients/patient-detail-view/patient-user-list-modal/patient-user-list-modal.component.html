@@ -1,0 +1,42 @@
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">{{modalTitle}}</p>
+            <button class="delete" aria-label="close" (click)="closeMod()"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+            <div class="search-container">
+                <form [formGroup]="searchForm">
+                    <div class="field">
+                        <label for="" class="label">Busqueda</label>
+                        <input class="input" formControlName="search" />
+                    </div>
+                </form>
+                <div class="list-of-results pt-3">
+                    <ng-container
+                        *ngFor="let pat of listOfUsers | searchPatientFilter: searchForm.value.search; let i = index">
+                        <div class="user-item columns m-0 my-2" (click)="selectUser(pat)">
+                            <div class="column is-2">
+                                <img [src]="maleIcon" alt="male">
+                            </div>
+                            <div class="column is-10">
+                                <p class="is-size-3 has-text-weight-semibold">{{fullName(pat.name, pat.lastname)}}</p>
+                                <h3 class="is-size-4 has-text-weight-light" *ngIf="isDoctors">{{pat?.doctor?.cedule}}
+                                </h3>
+                                <h3 class="is-size-4 has-text-weight-light" *ngIf="!isDoctors">{{pat?.nurse?.schedule}}
+                                </h3>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+        </section>
+        <!--  <footer class="modal-card-foot">
+            <button class="button is-success">Save changes</button>
+            <button class="button">Cancel</button>
+        </footer> -->
+    </div>
+</div>

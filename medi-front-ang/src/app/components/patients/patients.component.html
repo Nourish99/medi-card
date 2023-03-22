@@ -15,7 +15,7 @@
         <div class="columns is-flex is-flex-wrap-wrap">
             <ng-container *ngFor="let pat of patientList | searchPatientFilter: searchForm.value.search; let i = index">
                 <div class="column is-12-mobile is-8-tablet is-6-desktop is-6-widescreen is-6-fullhd">
-                    <div class="card">
+                    <div class="card" (click)="navigatePatientDetails(pat, $event)">
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-left">

@@ -51,18 +51,82 @@
         }
       }
 
-      .doctors-contanier {
-        .image-cont {
-          width: 35%;
+      .nurses-container {
+        display: flex;
+        flex-direction: column;
+        padding-top: 1rem;
 
-          img {
-            width: 50px;
-            height: 50px;
+        .nurse-cont {
+          display: flex;
+
+          .image-cont {
+            img {
+              width: 50px;
+              height: 50px;
+            }
+          }
+
+          .content {
+            flex-grow: 1;
+            padding-left: 1.5rem;
+
+            h3 {
+              text-align: left;
+              font-family: @body-font;
+              font-size: 24px;
+              font-weight: 800;
+              color: @black-color;
+              padding-bottom: 0.5rem;
+              margin-bottom: 0;
+            }
+
+            p {
+              text-align: left;
+              font-family: @body-font;
+              font-size: 16px;
+              font-weight: 500;
+              color: @black-color;
+            }
           }
         }
+      }
 
-        .content {
-          width: 65%;
+      .doctors-contanier {
+        display: flex;
+        flex-direction: column;
+
+        .doc-cont {
+          display: flex;
+
+          .image-cont {
+            img {
+              width: 50px;
+              height: 50px;
+            }
+          }
+
+          .content {
+            padding-left: 1.5rem;
+            flex-grow: 1;
+
+            h3 {
+              text-align: left;
+              font-family: @body-font;
+              font-size: 24px;
+              font-weight: 800;
+              color: @black-color;
+              padding-bottom: 0.5rem;
+              margin-bottom: 0;
+            }
+
+            p {
+              text-align: left;
+              font-family: @body-font;
+              font-size: 16px;
+              font-weight: 500;
+              color: @black-color;
+            }
+          }
         }
       }
     }

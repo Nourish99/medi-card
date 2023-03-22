@@ -105,4 +105,8 @@ export class AuthServiceService {
   isDoctor(){
     return this.getUserRole() == 'doctor'
   }
+
+  isFamiliar(){
+    return this.getUserRole() == 'familiar'
+  }
 }

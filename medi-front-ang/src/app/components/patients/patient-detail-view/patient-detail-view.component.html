@@ -5,7 +5,14 @@
                 <h1>Paciente: {{fullName}} </h1>
                 <div class="patient-contents is-flex is-justify-content-center py-5 is-flex-direction-column">
                     <div class="detail-content-item ">
-                        <h2 class="py-4">Informacion general</h2>
+                        <div class="w-100 is-flex is-flex-direction-row is-align-items-baseline">
+                            <div style="width: 50%">
+                                <h2 class="py-4">Informacion general</h2>
+                            </div>
+                            <div class=" is-flex is-justify-content-end" style="width: 50%;">
+                                <button class="button is-danger" (click)="openSigns()">Ver signos</button>
+                            </div>
+                        </div>
                         <table class="table w-100 ">
                             <tr>
                                 <td>Enfermedad</td>
@@ -30,34 +37,45 @@
                         <div class="doctors-contanier w-100 pl-4">
                             <ng-container *ngIf="!hasDoctor">
                                 <p>No tiene doctor asignado</p>
-                                <button class="button is-success mt-4">Asignar uno</button>
+                                <button class="button is-success mt-4" (click)="openUserChoose('doctor')">Asignar
+                                    uno</button>
                             </ng-container>
                             <ng-container *ngIf="hasDoctor">
-                                <div class="image-cont">
-                                    <img [src]="femaleIcon" alt="a">
-                                </div>
-                                <div class="content">
-                                    <h3>{{patientData?.doctorAttendence?.name}}</h3>
-                                    <p>{{patientData?.doctorAttendence?.doctor?.cedule}}</p>
+                                <div class="doc-cont">
+                                    <div class="image-cont">
+                                        <img [src]="femaleIcon" alt="a">
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{patientData?.doctorAttendence?.name}}</h3>
+                                        <p>{{patientData?.doctorAttendence?.doctor?.cedule}}</p>
+                                    </div>
                                 </div>
                             </ng-container>
                         </div>
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Enfermeros</h2>
-                        <div class="pl-4">
+                        <div class="pl-4 nurses-container">
                             <ng-container *ngIf="!hasNurses">
                                 <p>No tiene enfermeros asignado</p>
-                                <button class="button is-success mt-4">Asignar uno</button>
+                                <button class="button is-success mt-4" (click)="openUserChoose('nurse')">Asignar
+                                    uno</button>
                             </ng-container>
                             <ng-container *ngIf="hasNurses">
-                                <div *ngFor="let nur of currentNurses; let i = index">
+                                <div class="nurse-cont" *ngFor="let nur of currentNurses; let i = index">
                                     <div class="image-cont">
                                         <img [src]="femaleIcon" alt="a">
                                     </div>
                                     <div class="content">
-                                        <p>{{nur.name}}</p>
+                                        <h3>{{nur.name}}</h3>
+                                        <p>{{nur.nurse.schedule}}</p>
                                     </div>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="!hasNursesCompleted">
+                                <div>
+                                    <button class="button is-success mt-4" (click)="openUserChoose('nurse')">Agregar
+                                        otro</button>
                                 </div>
                             </ng-container>
                         </div>
@@ -82,22 +100,67 @@
                     <div class="detail-content-item ">
                         <h2 class="py-4">Medicamentos</h2>
                         <div class="medicines-container w-100 pl-4">
-                            <ul class="med-list">
-                                <li *ngFor="let med of patientMedicines; let i = index;">{{med}}</li>
-                            </ul>
+                            <ng-container *ngIf="!hasMedicines">
+                                <p>No tiene medicinas</p>
+                                <button class="button is-success mt-4">Agregar</button>
+                            </ng-container>
+                            <ng-container *ngIf="!hasMedicines">
+                                <div [innerHTML]="patientData.medicines">
+
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Recomendaciones</h2>
+                        <div class="w-100 pl-4">
+                            <ng-container *ngIf="!hasRecommend">
+                                <p>No tiene recomendaciones</p>
+                                <button class="button is-success mt-4">Agregar</button>
+                            </ng-container>
+                            <ng-container *ngIf="!hasRecommend">
+                                <div [innerHTML]="patientData.recomendations">
+
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Notas de enfermeria</h2>
+                        <div class="w-100 pl-4">
+                            <ng-container *ngIf="!hasNotes">
+                                <p>No tiene notas</p>
+                                <button class="button is-success mt-4">Agregar</button>
+                            </ng-container>
+                            <ng-container *ngIf="!hasNotes">
+                                <div [innerHTML]="patientData.nurseNotes">
+
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Raiografias</h2>
+                        <div class="w-100 pl-4">
+                            <ng-container *ngIf="!hasRadios">
+                                <p>No tiene radiografias</p>
+                                <button class="button is-success mt-4">Agregar</button>
+                            </ng-container>
+                            <ng-container *ngIf="!hasRadios">
+                                <div class="w-100 radios-container">
+
+                                </div>
+                            </ng-container>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<app-patient-detail-modal *ngIf="showSigns" [patient]="patientData"
+    (closeModal)="closeSigns($event)"></app-patient-detail-modal>
+
+<app-patient-user-list-modal *ngIf="addUserToPatient" (closeModal)="closeUserChoose($event)"
+    [additionType]="typeUserChoose" [patientId]="patientData?._id"></app-patient-user-list-modal>

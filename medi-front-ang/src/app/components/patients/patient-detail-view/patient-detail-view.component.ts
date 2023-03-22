@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserNameIcon } from 'src/app/helpers/assets-helper';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { PatientServiceService } from 'src/app/services/patient-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-patient-detail-view',
@@ -12,7 +15,18 @@ export class PatientDetailViewComponent implements OnInit {
   patientData: any = null;
   femaleIcon = UserNameIcon;
   maleIcon = UserNameIcon;
-  constructor(private route: ActivatedRoute){
+  isAdmin= false;
+  isDoctor = false;
+  isFamiliar = false;
+  isNurse = false;
+
+  showSigns = false;
+  addUserToPatient = false;
+  typeUserChoose = '';
+
+  constructor(private route: ActivatedRoute, 
+    private _authService: AuthServiceService,
+    private _patientService: PatientServiceService){
 
   }
 
@@ -22,7 +36,23 @@ export class PatientDetailViewComponent implements OnInit {
     );
 
     this.patientData = patientData;
-    console.log(this.patientData)
+    console.log(this.patientData);
+    this.isAdmin = this._authService.isAdmin();
+    this.isDoctor = this._authService.isDoctor();
+    this.isNurse = this._authService.isNurse();
+    this.isFamiliar = this._authService.isFamiliar();
+  }
+
+  reloadPatient(){
+    this._patientService.getPatitentById(this.patientData._id).subscribe((data)=>{
+      this.patientData = data.data;
+    }, (erro)=>{
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        html: `<strong class="FontMontserratTitles" style="font-size: 22px;">${erro.error.error}</strong>`,
+      });
+    })
   }
 
   formatedBirthDate(date: string){
@@ -46,6 +76,12 @@ export class PatientDetailViewComponent implements OnInit {
     && this.patientData.nursesAtendence.length > 0 
   }
 
+  get hasNursesCompleted(){
+    return this.patientData 
+    && this.patientData.nursesAtendence 
+    && this.patientData.nursesAtendence.length > 1 
+  }
+
   get hasFamiliar(){
     return this.patientData 
     && this.patientData.familiar 
@@ -54,9 +90,43 @@ export class PatientDetailViewComponent implements OnInit {
   get currentNurses(){
     return this.hasNurses ? this.patientData.nursesAtendence : []
   }
+  get hasRadios(){
+    return this.patientData 
+    && this.patientData.radiographies
+    && this.patientData.radiographies.length > 0 
+  }
+  get patientRadios(){
+    return this.patientData.radiographies ? this.patientData.radiographies : []
+  }
 
-  get patientMedicines(){
-    return this.patientData.medicines ? this.patientData.medicines : []
+  get hasMedicines(){
+    return this.patientData && this.patientData.medicines
+  }
+
+  get hasRecommend(){
+    return this.patientData && this.patientData.recomendations
+  }
+
+  get hasNotes(){
+    return this.patientData && this.patientData.nurseNotes
+  }
+
+  openSigns(){
+    this.showSigns = true;
+  }
+
+  closeSigns(event: any){
+    this.showSigns = false;
+  }
+
+  openUserChoose(type: string){
+    this.typeUserChoose = type;
+    this.addUserToPatient = true;
+  }
+
+  closeUserChoose(event: any){
+    this.addUserToPatient = false;
+    this.reloadPatient();
   }
 
 }

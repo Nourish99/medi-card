@@ -89,6 +89,11 @@ export class PatientsComponent implements OnInit {
     this._router.navigate(['patient-form']);
   }
 
+  navigatePatientDetails(pat:any, event:any){
+    event.stopPropagation();
+    this._router.navigate(['patients/'+pat._id])
+  }
+
   deletePatient(userId:string){
     if(!userId || !this.isAdmin){
       return

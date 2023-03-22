@@ -36,7 +36,6 @@ export class AuthComponent implements OnInit{
   }
 
   onSubmit(FormData: FormGroup) {
-    console.log(FormData)
     if(FormData.invalid){
       return;
     }
@@ -47,12 +46,13 @@ export class AuthComponent implements OnInit{
       ).subscribe((res) => {
         if(res.error == null){
           this.accountService.setAuth(res.data);
+          const role = res.data?.userdata?.role
           Swal.fire({
             title: 'Login Exitoso',
             icon: 'success',
-            html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Bienvenido Admin!</strong>`,
+            html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Bienvenido ${role}!</strong>`,
           });
-          const role = res.data?.userdata?.role
+          
           if(role == 'admin'){
             this.router.navigate(['dashboard']);
           }else{
