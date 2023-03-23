@@ -39,4 +39,7 @@ export class PatientServiceService {
   addNurseToPatient(patientInfo:any){
     return this.http.postToken(this.urlComplete, '/addNurse', patientInfo,this._authService.getToken());
   }
+  addRadios(patientInfo: any){
+    return this.http.postToken(this.urlComplete, '/addRadios', patientInfo,this._authService.getToken());
+  }
 }

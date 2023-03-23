@@ -85,7 +85,7 @@
                         <div class="pl-4">
                             <ng-container *ngIf="!hasFamiliar">
                                 <p>No tiene familiares asignado</p>
-                                <button class="button is-success mt-4">Asignar uno</button>
+                                <button class="button is-success mt-4" (click)="openFamiliar()">Asignar uno</button>
                             </ng-container>
                             <ng-container *ngIf="hasFamiliar">
                                 <div class="image-cont">
@@ -148,13 +148,18 @@
                         <div class="w-100 pl-4">
                             <ng-container *ngIf="!hasRadios">
                                 <p>No tiene radiografias</p>
-                                <button class="button is-success mt-4">Agregar</button>
-                            </ng-container>
-                            <ng-container *ngIf="!hasRadios">
-                                <div class="w-100 radios-container">
 
+                            </ng-container>
+                            <ng-container *ngIf="hasRadios">
+                                <div class="w-100 columns m-0">
+                                    <ng-container *ngFor="let img of patientRadios">
+                                        <div class="column p-0 is-6 is-flex is-align-items-center">
+                                            <img [src]="img" alt="" class="image">
+                                        </div>
+                                    </ng-container>
                                 </div>
                             </ng-container>
+                            <button class="button is-success mt-4" (click)="openRadios()">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -172,3 +177,6 @@
 
 <app-patient-text-modal [fieldToUpdate]="selectedField" [lastValue]="lastSelectedValue" [patientId]="patientData?._id"
     *ngIf="showUpdateFieldText" (closeModal)="closeUpdateModal($event)"></app-patient-text-modal>
+<app-patient-imgs-modal [patientId]="patientData?._id" *ngIf="showUpdateRadios"
+    (closeModal)="closeRadios($event)"></app-patient-imgs-modal>
+<app-familiar-form *ngIf="showFamiliarForm"></app-familiar-form>

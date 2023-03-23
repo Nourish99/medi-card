@@ -1,1 +1,40 @@
-<p>patient-imgs-modal works!</p>
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Agregar rediografias</p>
+            <button class="delete" aria-label="close" (click)="closeMod()"></button>
+        </header>
+        <section class="modal-card-body">
+            <!-- Content ... -->
+            <form [formGroup]="FormData">
+                <div class="file is-boxed">
+                    <label class="file-label">
+                        <input class="file-input" type="file" accept="image/*" name="resume" multiple
+                            formControlName="images" (change)="fnLoadFoto($event,'frente')">
+                        <span class="file-cta">
+                            <span class="file-icon">
+                                <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                                Elegir imagenes
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            </form>
+            <div class="columns is-flex is-flex-direction-row is-flex-wrap-wrap py-4">
+                <ng-container *ngFor="let img of imagesPreview">
+                    <div class="column p-0 is-6 is-flex is-align-items-center">
+                        <img [src]="img" alt="" class="image">
+                    </div>
+                </ng-container>
+            </div>
+
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" (click)="save($event)">Guardar</button>
+            <button class="button" (click)="closeMod()">Cancelar</button>
+        </footer>
+    </div>
+</div>

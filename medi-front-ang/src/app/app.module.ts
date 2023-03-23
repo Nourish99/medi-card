@@ -16,7 +16,7 @@ import { SearchPatientPipe } from './pipes/search-patient.pipe';
 import { PatientFormComponent } from './components/patients/patient-form/patient-form.component';
 import { PatientDetailModalComponent } from './components/patients/patient-detail-modal/patient-detail-modal.component';
 import { PatientDetailViewComponent } from './components/patients/patient-detail-view/patient-detail-view.component';
-import { FamiliarFormComponent } from './components/patients/familiar-form/familiar-form.component';
+import { FamiliarFormComponent } from './components/patients/patient-detail-view/familiar-form/familiar-form.component';
 import { PatientUserListModalComponent } from './components/patients/patient-detail-view/patient-user-list-modal/patient-user-list-modal.component';
 import { PatientTextModalComponent } from './components/patients/patient-detail-view/patient-text-modal/patient-text-modal.component';
 import { PatientImgsModalComponent } from './components/patients/patient-detail-view/patient-imgs-modal/patient-imgs-modal.component';

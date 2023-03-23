@@ -24,6 +24,8 @@ export class PatientDetailViewComponent implements OnInit {
   addUserToPatient = false;
   typeUserChoose = '';
   showUpdateFieldText = false;
+  showUpdateRadios = false;
+  showFamiliarForm = false;
 
   selectedField ='';
   lastSelectedValue = '';
@@ -134,6 +136,23 @@ export class PatientDetailViewComponent implements OnInit {
 
   closeUpdateModal(event: any){
     this.showUpdateFieldText = false;
+    this.reloadPatient();
+  }
+
+  openRadios(){
+    this.showUpdateRadios = true;
+  }
+
+  closeRadios(event:any){
+    this.showUpdateRadios = false;
+    this.reloadPatient();
+  }
+
+  openFamiliar(){
+    this.showFamiliarForm = true;
+  }
+  closeFamiliar(event: any){
+    this.showFamiliarForm = false;
     this.reloadPatient();
   }
 
