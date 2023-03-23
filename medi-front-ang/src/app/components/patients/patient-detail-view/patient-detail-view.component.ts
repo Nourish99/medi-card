@@ -23,6 +23,10 @@ export class PatientDetailViewComponent implements OnInit {
   showSigns = false;
   addUserToPatient = false;
   typeUserChoose = '';
+  showUpdateFieldText = false;
+
+  selectedField ='';
+  lastSelectedValue = '';
 
   constructor(private route: ActivatedRoute, 
     private _authService: AuthServiceService,
@@ -36,7 +40,6 @@ export class PatientDetailViewComponent implements OnInit {
     );
 
     this.patientData = patientData;
-    console.log(this.patientData);
     this.isAdmin = this._authService.isAdmin();
     this.isDoctor = this._authService.isDoctor();
     this.isNurse = this._authService.isNurse();
@@ -127,6 +130,17 @@ export class PatientDetailViewComponent implements OnInit {
   closeUserChoose(event: any){
     this.addUserToPatient = false;
     this.reloadPatient();
+  }
+
+  closeUpdateModal(event: any){
+    this.showUpdateFieldText = false;
+    this.reloadPatient();
+  }
+
+  updateField(filed: string){
+    this.selectedField = filed;
+    this.lastSelectedValue = filed in this.patientData ? this.patientData[filed] :'';
+    this.showUpdateFieldText = true
   }
 
 }

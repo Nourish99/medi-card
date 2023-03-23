@@ -102,13 +102,14 @@
                         <div class="medicines-container w-100 pl-4">
                             <ng-container *ngIf="!hasMedicines">
                                 <p>No tiene medicinas</p>
-                                <button class="button is-success mt-4">Agregar</button>
+
                             </ng-container>
-                            <ng-container *ngIf="!hasMedicines">
-                                <div [innerHTML]="patientData.medicines">
+                            <ng-container *ngIf="hasMedicines">
+                                <div [innerHTML]="patientData.medicines" class="px-2">
 
                                 </div>
                             </ng-container>
+                            <button class="button is-success mt-4" (click)="updateField('medicines')">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -116,13 +117,15 @@
                         <div class="w-100 pl-4">
                             <ng-container *ngIf="!hasRecommend">
                                 <p>No tiene recomendaciones</p>
-                                <button class="button is-success mt-4">Agregar</button>
+
                             </ng-container>
-                            <ng-container *ngIf="!hasRecommend">
-                                <div [innerHTML]="patientData.recomendations">
+                            <ng-container *ngIf="hasRecommend">
+                                <div [innerHTML]="patientData.recomendations" class="px-2">
 
                                 </div>
                             </ng-container>
+                            <button class="button is-success mt-4"
+                                (click)="updateField('recomendations')">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -130,13 +133,14 @@
                         <div class="w-100 pl-4">
                             <ng-container *ngIf="!hasNotes">
                                 <p>No tiene notas</p>
-                                <button class="button is-success mt-4">Agregar</button>
+
                             </ng-container>
-                            <ng-container *ngIf="!hasNotes">
-                                <div [innerHTML]="patientData.nurseNotes">
+                            <ng-container *ngIf="hasNotes">
+                                <div [innerHTML]="patientData.nurseNotes" class="px-2">
 
                                 </div>
                             </ng-container>
+                            <button class="button is-success mt-4" (click)="updateField('nurseNotes')">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -165,3 +169,6 @@
 <app-patient-user-list-modal *ngIf="addUserToPatient" (closeModal)="closeUserChoose($event)"
     [additionType]="typeUserChoose" [patientId]="patientData?._id"
     [currentNurse]="currentNurses"></app-patient-user-list-modal>
+
+<app-patient-text-modal [fieldToUpdate]="selectedField" [lastValue]="lastSelectedValue" [patientId]="patientData?._id"
+    *ngIf="showUpdateFieldText" (closeModal)="closeUpdateModal($event)"></app-patient-text-modal>
