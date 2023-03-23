@@ -94,6 +94,18 @@ export class AuthServiceService {
     return role;
   }
 
+  getUserFamiliar(){
+    const user = this.storageService.getItem('user-info');
+
+    if (!user) {
+      console.log('No hay user logueado');
+      return false;
+    }
+
+    const familiarId = JSON.parse(user).userdata.familiar._id;
+    return familiarId;
+  }
+
   isAdmin(){
     return this.getUserRole() == 'admin'
   }

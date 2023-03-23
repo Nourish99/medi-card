@@ -10,7 +10,14 @@ import { PatientDetailViewComponent } from './components/patients/patient-detail
 import { PatientDetailResolver } from './components/resolvers/patient-detail.resolver';
 
 const routes: Routes = [
-  {path: '', component: LandingComponent}, 
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home', component: LandingComponent
+  },
   {path: 'login', component: AuthComponent},
   {
     path: 'dashboard', 

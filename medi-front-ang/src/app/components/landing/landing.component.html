@@ -8,7 +8,7 @@
                 <div class="principal-info w-100 is-flex is-flex-direction-column is-align-items-center">
                     <h1>SAIP</h1>
                     <p>Sistema avanzado de informacion de pacientes</p>
-                    <button class="button is-primary">Conocer mas</button>
+                    <button class="button is-primary" (click)="navigateUs()">Conocer mas</button>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
     <div class="container landing-cards-container">
         <h1 class="title py-3">Por que SIAP?</h1>
         <ng-container *ngFor="let card of landingCards; let i = index">
-            <div class="columns landing-card m-0 py-5">
+            <div class="columns landing-card m-0 py-5" [id]="card.id">
                 <ng-container *ngIf="card.left">
                     <div class="column is-6 image-container">
                         <div>
@@ -46,7 +46,7 @@
         </ng-container>
     </div>
 </section>
-<section class="landing-services my-5">
+<section class="landing-services my-5" id="services">
     <div class="container services-list-container">
         <ng-container *ngFor="let service of landingServices; let i = index">
             <div class="service-container">
@@ -56,14 +56,38 @@
         </ng-container>
     </div>
 </section>
-<section class="landing-patients">
+<section class="landing-patients" id="patients">
     <div class="container">
         <h2>Pacientes</h2>
-        <div>
+        <p class="py-5 is-size-2">Servicios que ofrecemos.</p>
+        <div class="columns m-0 " style="height: 400px;">
+            <div class="column is-6" style="height: 100%; overflow: auto;">
+                <div class="content">
+                    <ul>
+                        <ng-container *ngFor="let serv of landingPatientServices ">
+                            <li>{{serv.title}}
+                                <ng-container *ngIf="serv.subs.length > 0">
+                                    <ul>
+                                        <li *ngFor="let sub of serv.subs">{{sub}}</li>
+                                    </ul>
 
+                                </ng-container>
+                            </li>
+                        </ng-container>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="column is-6">
+                <div class="w-100" style="height: 100%;
+                display: flex;">
+                    <img [src]="patientsBanner" class="image" alt=""
+                        style="border-radius: 16px ;box-shadow: 11px 12px 27px -17px rgba(0, 0, 0, 0.1);">
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<section class="landing-contact">
+<section class="landing-contact" id="contact">
     <app-landing-contact></app-landing-contact>
 </section>

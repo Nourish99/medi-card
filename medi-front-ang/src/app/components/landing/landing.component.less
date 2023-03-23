@@ -1,159 +1,163 @@
-@import url("../../../assets/web-page/variables.less");
+@import url('../../../assets/web-page/variables.less');
 
-.landing-header{
-    height: calc(100vh - 56px);
-    position: relative;
+.landing-header {
+  height: calc(100vh - 56px);
+  position: relative;
 
-    .background-image{
-        position: absolute;
-        background-color: aqua;
-        height: 100%;
-        overflow: hidden;
-        width: 100%;
-
-        img{
-            object-fit: cover;
-            height: 100%;
-            width: 100%;
-        }
-    }
-
-    .background-content{
-        background: rgb(0 0 0 / 72%);
-        backdrop-filter: blur(5.2px);
-        height: 100%;
-        position: absolute;
-        width: 100%;
-        overflow: hidden;
-
-        .principal-info{
-            gap: 1rem;
-
-            h1{
-                text-align: center;
-                font-family: @body-font;
-                font-size: 80px;
-                font-weight: 800;
-                color: @color-fourth;
-            }
-
-            p{
-                text-align: center;
-                font-family: @body-font;
-                font-size: 24px;
-                font-weight: 500;
-                color: @color-fourth;
-                text-transform: capitalize;
-
-            }
-        }
-    }
-}
-
-.landing-us{
+  .background-image {
+    position: absolute;
+    background-color: aqua;
+    height: 100%;
+    overflow: hidden;
     width: 100%;
 
-    .landing-cards-container{
-        .title{
-            text-align: center;
-            font-style: italic;
-                font-family: @body-font;
-                font-size: 80px;
-                font-weight: 800;
-             color: @black-color;
-        }
-
-        .landing-card{
-            .text-container{
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                justify-content: center;
-
-                h2{
-                    text-align: center;
-                    font-family: @body-font;
-                    font-size: 48px;
-                    font-weight: 800;
-                    color: @black-color;
-                }
-
-                p{
-                    text-align: center;
-                    font-family: @body-font;
-                    font-size: 18px;
-                    font-weight: 500;
-                    color: @black-color;
-                    text-transform: capitalize;
-                }
-            }
-
-            .image-container{
-                display: flex;
-                height: 350px;
-                justify-content: center;
-
-                div{
-                    border-radius: 16px;
-                    box-shadow: 11px 12px 27px -17px rgb(0 0 0 / 10%);
-                    display: flex;
-
-                    img{
-                        object-fit: contain;
-                    border-radius: 16px;
-
-                    }
-                }
-            }
-        }
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
     }
+  }
+
+  .background-content {
+    background: rgb(0 0 0 / 72%);
+    backdrop-filter: blur(5.2px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+
+    .principal-info {
+      gap: 1rem;
+
+      h1 {
+        text-align: center;
+        font-family: @body-font;
+        font-size: 80px;
+        font-weight: 800;
+        color: @color-fourth;
+      }
+
+      p {
+        text-align: center;
+        font-family: @body-font;
+        font-size: 24px;
+        font-weight: 500;
+        color: @color-fourth;
+        text-transform: capitalize;
+      }
+    }
+  }
 }
 
-.landing-services{
-    background-color: #f6f7f8bf;
-    padding: 48px 0;
+.landing-us {
+  width: 100%;
 
-    .services-list-container{
+  .landing-cards-container {
+    .title {
+      text-align: center;
+      font-style: italic;
+      font-family: @body-font;
+      font-size: 80px;
+      font-weight: 800;
+      color: @black-color;
+    }
+
+    .landing-card {
+      .text-container {
         display: flex;
-        flex-flow: row wrap;
-        gap: 1rem;
+        align-items: center;
+        flex-direction: column;
         justify-content: center;
 
-        .service-container{
-            width: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-
-            img{
-                width: 100px;
-                height: 100px;
-                object-fit: cover;
-            }
-
-            h3{
-                text-align: center;
-                    font-family: @body-font;
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: @black-color;
-                text-transform: capitalize;
-
-            }
+        h2 {
+          text-align: center;
+          font-family: @body-font;
+          font-size: 48px;
+          font-weight: 800;
+          color: @black-color;
         }
+
+        p {
+          text-align: center;
+          font-family: @body-font;
+          font-size: 18px;
+          font-weight: 500;
+          color: @black-color;
+          text-transform: capitalize;
+        }
+      }
+
+      .image-container {
+        display: flex;
+        height: 350px;
+        justify-content: center;
+
+        div {
+          border-radius: 16px;
+          box-shadow: 11px 12px 27px -17px rgb(0 0 0 / 10%);
+          display: flex;
+
+          img {
+            object-fit: contain;
+            border-radius: 16px;
+          }
+        }
+      }
     }
+  }
 }
 
-.landing-patients{
-    .container{
-        h2{
-            text-align: center;
-            font-family: @body-font;
-            font-size: 64px;
-            font-weight: 800;
-            color: @black-color; 
-        }
+.landing-services {
+  background-color: #f6f7f8bf;
+  padding: 48px 0;
+
+  .services-list-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    justify-content: center;
+
+    .service-container {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+      }
+
+      h3 {
+        text-align: center;
+        font-family: @body-font;
+        font-size: 16px;
+        font-weight: 500;
+        color: @black-color;
+        text-transform: capitalize;
+      }
     }
+  }
+}
+
+.landing-patients {
+  padding-top: 64px;
+  padding-bottom: 64px;
+
+  .container {
+    h2 {
+      text-align: center;
+      font-family: @body-font;
+      font-size: 64px;
+      font-weight: 800;
+      color: @black-color;
+    }
+  }
+}
+
+.landing-contact {
+  background-color: #f6f7f8bf;
+  padding: 48px 0;
 }

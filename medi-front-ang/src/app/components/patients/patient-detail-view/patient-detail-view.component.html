@@ -31,14 +31,20 @@
                                 <td><time datetime="2016-1-1">{{formatedBirthDate(patientData.birthdate)}}</time></td>
                             </tr>
                         </table>
+                        <div *ngIf="isDoctor || isAdmin || isNurse">
+                            <button class="button is-warning" (click)="updatePatient()"><span>Actualizar
+                                    info</span></button>
+                        </div>
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Doctores</h2>
                         <div class="doctors-contanier w-100 pl-4">
                             <ng-container *ngIf="!hasDoctor">
                                 <p>No tiene doctor asignado</p>
-                                <button class="button is-success mt-4" (click)="openUserChoose('doctor')">Asignar
-                                    uno</button>
+                                <div>
+                                    <button class="button is-success mt-4" (click)="openUserChoose('doctor')">Asignar
+                                        uno</button>
+                                </div>
                             </ng-container>
                             <ng-container *ngIf="hasDoctor">
                                 <div class="doc-cont">
@@ -72,7 +78,7 @@
                                     </div>
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="!hasNursesCompleted">
+                            <ng-container *ngIf="!hasNursesCompleted && isDoctor">
                                 <div>
                                     <button class="button is-success mt-4" (click)="openUserChoose('nurse')">Agregar
                                         otro</button>
@@ -82,17 +88,21 @@
                     </div>
                     <div class="detail-content-item ">
                         <h2 class="py-4">Familiares</h2>
-                        <div class="pl-4">
+                        <div class="pl-4 familiars-container">
                             <ng-container *ngIf="!hasFamiliar">
                                 <p>No tiene familiares asignado</p>
-                                <button class="button is-success mt-4" (click)="openFamiliar()">Asignar uno</button>
+                                <button class="button is-success mt-4" (click)="openFamiliar()"
+                                    *ngIf="isDoctor || isAdmin || isNurse">Asignar uno</button>
                             </ng-container>
                             <ng-container *ngIf="hasFamiliar">
-                                <div class="image-cont">
-                                    <img [src]="femaleIcon" alt="a">
-                                </div>
-                                <div class="content">
-                                    <p>{{patientData?.familiar?.name}}</p>
+                                <div class="familiar-cont">
+                                    <div class="image-cont">
+                                        <img [src]="femaleIcon" alt="a">
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{patientData?.familiar?.name}}</h3>
+                                        <p>{{patientData?.familiar?.age}}</p>
+                                    </div>
                                 </div>
                             </ng-container>
                         </div>
@@ -109,7 +119,8 @@
 
                                 </div>
                             </ng-container>
-                            <button class="button is-success mt-4" (click)="updateField('medicines')">Agregar</button>
+                            <button class="button is-success mt-4" (click)="updateField('medicines')"
+                                *ngIf="isAdmin || isDoctor">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -124,8 +135,8 @@
 
                                 </div>
                             </ng-container>
-                            <button class="button is-success mt-4"
-                                (click)="updateField('recomendations')">Agregar</button>
+                            <button class="button is-success mt-4" (click)="updateField('recomendations')"
+                                *ngIf="isAdmin || isDoctor">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -140,7 +151,8 @@
 
                                 </div>
                             </ng-container>
-                            <button class="button is-success mt-4" (click)="updateField('nurseNotes')">Agregar</button>
+                            <button class="button is-success mt-4" (click)="updateField('nurseNotes')"
+                                *ngIf="isDoctor || isAdmin || isNurse">Agregar</button>
                         </div>
                     </div>
                     <div class="detail-content-item ">
@@ -159,7 +171,8 @@
                                     </ng-container>
                                 </div>
                             </ng-container>
-                            <button class="button is-success mt-4" (click)="openRadios()">Agregar</button>
+                            <button class="button is-success mt-4" (click)="openRadios()"
+                                *ngIf="isDoctor || isAdmin || isNurse">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -179,4 +192,5 @@
     *ngIf="showUpdateFieldText" (closeModal)="closeUpdateModal($event)"></app-patient-text-modal>
 <app-patient-imgs-modal [patientId]="patientData?._id" *ngIf="showUpdateRadios"
     (closeModal)="closeRadios($event)"></app-patient-imgs-modal>
-<app-familiar-form *ngIf="showFamiliarForm"></app-familiar-form>
+<app-familiar-form *ngIf="showFamiliarForm" [patientId]="patientData?._id"
+    (closeModal)="closeFamiliar($event)"></app-familiar-form>

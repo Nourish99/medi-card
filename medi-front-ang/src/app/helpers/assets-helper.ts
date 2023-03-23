@@ -18,4 +18,7 @@ export const DoctorFemaleImg = "assets/ui-images/doctor-female-img.jpg";
 export const DoctorConsultImg = "assets/ui-images/doctor-consult-img.jpg";
 export const HeartbeatMachineImg = "assets/ui-images/heartbeat-machine-img.jpg";
 
+export const PatientsBanner = "assets/ui-images/patients-banner.jpg";
+
+
 

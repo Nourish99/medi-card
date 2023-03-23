@@ -13,11 +13,23 @@ export class FamiliarFormComponent implements OnInit {
   @Output() closeModal = new EventEmitter<any>();
   @Input() patientId = '';
 
+  validatePasswordMatch = (control: AbstractControl): {[key: string]: any} | null => {
+    const password = this.FormData?.get('password')?.value as string;
+    const passwordConfirm = control.value as string;
+  
+    if (password !== passwordConfirm) {
+      return {passwordMatch: true};
+    }
+  
+    return null;
+  };
+
   FormData: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lastname: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    cPassword: new FormControl('', [Validators.required, Validators.minLength(6),this.validatePasswordMatch]),
     email: new FormControl('', [Validators.required, Validators.email]),
     age: new FormControl(0, [Validators.required]),
     gender: new FormControl('hombre')
@@ -29,7 +41,8 @@ export class FamiliarFormComponent implements OnInit {
         name: [ '', [Validators.required]],
         lastname:[ '', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(6)]],
-        email: ['', [Validators.required, Validators.email]],
+        cPassword:  ['', [Validators.required, Validators.minLength(6), this.validatePasswordMatch]],
+        email: ['', Validators.compose([Validators.required, Validators.email] )],
         age: [0, [Validators.required]],
         gender: ['hombre']
     })
@@ -43,7 +56,7 @@ export class FamiliarFormComponent implements OnInit {
     this.closeModal.emit(true);
   }
   save(event: any){
-    if(this.FormData.invalid){
+    if(!this.FormData.valid){
       Swal.fire({
         title: 'Error',
         icon: 'error',
@@ -51,10 +64,21 @@ export class FamiliarFormComponent implements OnInit {
       });
       return;
     }
+    if(this.FormData.value.cPassword != this.FormData.value.password){
+      Swal.fire({
+        title: 'Error',
+        icon: 'error',
+        html: `<strong class="FontMontserratTitles" style="font-size: 22px;">Revisa el formulario!</strong>`,
+      });
+      return;
+    }
+
     const requesto = this.FormData.value;
 
     requesto['role'] = 'familiar';
     requesto['patientId'] = this.patientId;
+
+    delete requesto['cPassword']
 
     this._authService.register(requesto).subscribe((res)=>{
       this.closeModal.emit();

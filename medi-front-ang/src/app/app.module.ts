@@ -21,6 +21,9 @@ import { PatientUserListModalComponent } from './components/patients/patient-det
 import { PatientTextModalComponent } from './components/patients/patient-detail-view/patient-text-modal/patient-text-modal.component';
 import { PatientImgsModalComponent } from './components/patients/patient-detail-view/patient-imgs-modal/patient-imgs-modal.component';
 import { QuillModule } from 'ngx-quill'
+import { Router, Scroll } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
+import { filter } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -51,4 +54,22 @@ import { QuillModule } from 'ngx-quill'
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router, viewportScroller: ViewportScroller) {
+    viewportScroller.setOffset([0, 60]);
+    router.events.pipe(filter(e => e instanceof Scroll)).subscribe((e: any) => {
+      if (e.anchor) {
+        // anchor navigation
+        setTimeout(() => {
+          viewportScroller.scrollToAnchor(e.anchor);
+        })
+      } else if (e.position) {
+        // backward navigation
+        viewportScroller.scrollToPosition(e.position);
+      } else {
+        // forward navigation
+        viewportScroller.scrollToPosition([0, 0]);
+      }
+    });
+  }
+ }

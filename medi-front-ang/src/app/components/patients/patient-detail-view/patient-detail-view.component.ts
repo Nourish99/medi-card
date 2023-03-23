@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserNameIcon } from 'src/app/helpers/assets-helper';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { PatientServiceService } from 'src/app/services/patient-service.service';
@@ -32,7 +32,8 @@ export class PatientDetailViewComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
     private _authService: AuthServiceService,
-    private _patientService: PatientServiceService){
+    private _patientService: PatientServiceService,
+    private router: Router){
 
   }
 
@@ -58,6 +59,13 @@ export class PatientDetailViewComponent implements OnInit {
         html: `<strong class="FontMontserratTitles" style="font-size: 22px;">${erro.error.error}</strong>`,
       });
     })
+  }
+
+  updatePatient() {
+    this.router.navigate(
+      ['/patient-form'],
+      { queryParams: { patientID: this.patientData._id} }
+    );
   }
 
   formatedBirthDate(date: string){

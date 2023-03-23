@@ -17,7 +17,7 @@
         Inicio
       </a>
 
-      <a class="navbar-item">
+      <a class="navbar-item" routerLink="/home#us" (click)="forceNavigate('us')">
         Que somos?
       </a>
       <div class="navbar-item has-dropdown is-hoverable">
@@ -26,21 +26,34 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            Pacientes
+          <a class="navbar-item" routerLink="/home#mision" (click)="forceNavigate('mision')">
+            Mision
           </a>
-          <a class="navbar-item">
-            Farmacia
+          <a class="navbar-item" routerLink="/home#vision" (click)="forceNavigate('vision')">
+            Vision
           </a>
-          <a class="navbar-item">
-            Contacto
+          <a class="navbar-item" routerLink="/home#valores" (click)="forceNavigate('valores')">
+            valores
           </a>
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
+          <a class="navbar-item" routerLink="/home#patients" (click)="forceNavigate('patients')">
+            Pacientes
+          </a>
+          <a class="navbar-item" routerLink="/home#contact" (click)="forceNavigate('contact')">
+            Contacto
           </a>
         </div>
       </div>
+      <ng-container *ngIf="logged && (isDoctor || isNurse) ">
+        <a class="navbar-item" routerLink="/patients">
+          Ver Pacientes
+        </a>
+      </ng-container>
+      <ng-container *ngIf="logged && isFamiliar">
+        <a class="navbar-item" [routerLink]="familiarLink">
+          Ver mi paciente
+        </a>
+      </ng-container>
     </div>
 
     <div class="navbar-end">

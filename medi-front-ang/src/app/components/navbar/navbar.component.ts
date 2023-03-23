@@ -16,11 +16,26 @@ export class NavbarComponent implements OnInit{
 
   authSub: Subscription;
 
+  isAdmin= false;
+  isDoctor = false;
+  isFamiliar = false;
+  isNurse = false;
+  patientId = '';
+  familiarLink = '';
+
   constructor(private router: Router, private authService: AuthServiceService){
     this.authSub = this.authService._auth.subscribe((data) => {
       this.logged = data;
     });
+    this.isAdmin = this.authService.isAdmin();
+    this.isDoctor = this.authService.isDoctor();
+    this.isNurse = this.authService.isNurse();
+    this.isFamiliar = this.authService.isFamiliar();
 
+    if(this.isFamiliar){
+      this.patientId = this.authService.getUserFamiliar();
+      this.familiarLink = `/patients/${this.patientId}`
+    }
   }
 
   ngOnInit(): void {
@@ -33,6 +48,10 @@ export class NavbarComponent implements OnInit{
 
   navigateHome(){
     this.router.navigate([''])
+  }
+
+  forceNavigate(name: string) {
+    this.router.navigate(['/home'], { fragment: name });
   }
 
   logOut(){

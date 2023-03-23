@@ -13,7 +13,7 @@
                         <input class="input" type="text" placeholder="username" formControlName="username">
                     </div>
                     <p class="help is-danger"
-                        *ngIf="f['name'].hasError('required') && (f['username'].valid || f['username'].dirty)">
+                        *ngIf="f['username'].hasError('required') && (f['username'].valid || f['username'].dirty)">
                         Username requerido</p>
                 </div>
                 <div class="field pt-4 pb-1">
@@ -61,8 +61,11 @@
                         <input class="input" type="email" placeholder="Email" formControlName="email">
                     </div>
                     <p class="help is-danger"
-                        *ngIf="f['name'].hasError('required') && (f['email'].valid || f['email'].dirty)">
+                        *ngIf="f['email'].hasError('required') && (f['email'].valid || f['email'].dirty)">
                         Email requerido</p>
+                    <p class="help is-danger"
+                        *ngIf="f['email'].hasError('email') && (f['email'].valid || f['email'].dirty)">
+                        Email incorrecto</p>
                 </div>
                 <div class="field pt-4 pb-1">
                     <label class="label">Password</label>
@@ -70,8 +73,20 @@
                         <input class="input" type="password" placeholder="Password" formControlName="password">
                     </div>
                     <p class="help is-danger"
-                        *ngIf="f['name'].hasError('required') && (f['password'].valid || f['password'].dirty)">
+                        *ngIf="f['password'].hasError('required') && (f['password'].valid || f['password'].dirty)">
                         Password requerido</p>
+                </div>
+                <div class="field pt-4 pb-1">
+                    <label class="label">Confirmar Password</label>
+                    <div class="control ">
+                        <input class="input" type="password" placeholder="Password" formControlName="cPassword">
+                    </div>
+                    <p class="help is-danger"
+                        *ngIf="f['cPassword'].hasError('required') && (f['cPassword'].valid || f['cPassword'].dirty)">
+                        Password requerido</p>
+                    <p class="help is-danger"
+                        *ngIf="f['cPassword'].hasError('passwordMatch') && (f['cPassword'].valid || f['cPassword'].dirty)">
+                        Password no coincide</p>
                 </div>
 
             </form>
